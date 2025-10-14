@@ -1,0 +1,41 @@
+digraph LibrarySystem {
+  rankdir=TB;
+
+  start [shape=oval, label="BAŞLA"];
+  login [shape=parallelogram, label="Kullanıcı Girişi"];
+  loginCheck [shape=diamond, label="Giriş Başarılı mı?"];
+  exitLogin [shape=oval, label="BİTİR"];
+
+  searchBook [shape=parallelogram, label="Kitap Ara"];
+  bookCheck [shape=diamond, label="Kitap Mevcut mu?"];
+  noBook [shape=box, label="Kitap mevcut değil"];
+  
+  debtCheck [shape=diamond, label="Kullanıcının Borcu Var mı?"];
+  debtMessage [shape=box, label="Borç ödenmeli"];
+  
+  limitCheck [shape=diamond, label="Ödünç Limiti Aşıldı mı?"];
+  limitMessage [shape=box, label="Limit aşıldı"];
+  
+  lendBook [shape=box, label="Kitap ödünç verildi"];
+  dueDate [shape=parallelogram, label="Teslim tarihi: 15 gün sonra"];
+  end [shape=oval, label="BİTİR"];
+
+  start -> login -> loginCheck;
+  loginCheck -> searchBook [label="EVET"];
+  loginCheck -> exitLogin [label="HAYIR"];
+
+  searchBook -> bookCheck;
+  bookCheck -> noBook [label="HAYIR"];
+  noBook -> end;
+
+  bookCheck -> debtCheck [label="EVET"];
+  debtCheck -> debtMessage [label="EVET"];
+  debtMessage -> end;
+
+  debtCheck -> limitCheck [label="HAYIR"];
+  limitCheck -> limitMessage [label="EVET"];
+  limitMessage -> end;
+
+  limitCheck -> lendBook [label="HAYIR"];
+  lendBook -> dueDate -> end;
+}

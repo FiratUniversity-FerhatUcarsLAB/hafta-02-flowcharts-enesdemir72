@@ -1,0 +1,45 @@
+digraph BankSystem {
+  rankdir=TB;
+
+  start [shape=oval, label="BAŞLA"];
+  login [shape=parallelogram, label="Kullanıcı Girişi"];
+  loginCheck [shape=diamond, label="Giriş Başarılı mı?"];
+  exitLogin [shape=oval, label="BİTİR"];
+
+  menu [shape=box, label="Menü: 1-Bakiye 2-Yatır 3-Çek 4-Çıkış"];
+  choice [shape=diamond, label="Seçim?"];
+
+  balance [shape=box, label="Bakiye Görüntüle"];
+  deposit [shape=parallelogram, label="Yatırılacak Miktarı Gir"];
+  depositUpdate [shape=box, label="Bakiye = Bakiye + miktar"];
+
+  withdraw [shape=parallelogram, label="Çekilecek Miktarı Gir"];
+  checkBalance [shape=diamond, label="Miktar > Bakiye?"];
+  insufficient [shape=box, label="Yetersiz Bakiye"];
+  withdrawUpdate [shape=box, label="Bakiye = Bakiye - miktar"];
+
+  exit [shape=box, label="Çıkış Yapıldı"];
+  end [shape=oval, label="BİTİR"];
+
+  start -> login -> loginCheck;
+  loginCheck -> menu [label="EVET"];
+  loginCheck -> exitLogin [label="HAYIR"];
+
+  menu -> choice;
+
+  choice -> balance [label="1"];
+  balance -> menu;
+
+  choice -> deposit [label="2"];
+  deposit -> depositUpdate -> menu;
+
+  choice -> withdraw [label="3"];
+  withdraw -> checkBalance;
+  checkBalance -> insufficient [label="EVET"];
+  insufficient -> menu;
+  checkBalance -> withdrawUpdate [label="HAYIR"];
+  withdrawUpdate -> menu;
+
+  choice -> exit [label="4"];
+  exit -> end;
+}

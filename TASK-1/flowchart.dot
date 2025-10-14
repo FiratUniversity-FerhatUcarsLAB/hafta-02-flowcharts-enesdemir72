@@ -1,0 +1,40 @@
+digraph ATM {
+  rankdir=TB;
+
+  start [shape=oval, label="BAŞLA"];
+  insertCard [shape=parallelogram, label="Kartı Tak"];
+  enterPIN [shape=parallelogram, label="PIN Gir"];
+  checkPIN [shape=diamond, label="PIN Doğru mu?"];
+  wrongPIN [shape=box, label="Deneme Sayısını Artır"];
+  blockCard [shape=parallelogram, label="Kart Bloke"];
+  readBalance [shape=parallelogram, label="Bakiyeyi Oku"];
+  enterAmount [shape=parallelogram, label="Tutar Gir"];
+  checkBalance [shape=diamond, label="Yeterli Bakiye?"];
+  checkMultiple [shape=diamond, label="20 TL Katı mı?"];
+  checkLimit [shape=diamond, label="Günlük Limiti Aşıyor mu?"];
+  dispenseCash [shape=parallelogram, label="Para Ver"];
+  printReceipt [shape=parallelogram, label="Fiş Çıkar"];
+  anotherTransaction [shape=diamond, label="Başka İşlem?"];
+  end [shape=oval, label="BİTİR"];
+
+  start -> insertCard -> enterPIN -> checkPIN;
+  checkPIN -> readBalance [label="EVET"];
+  checkPIN -> wrongPIN [label="HAYIR"];
+  wrongPIN -> enterPIN;
+  wrongPIN -> blockCard [label="3 Deneme Sonrası"];
+  blockCard -> end;
+
+  readBalance -> enterAmount -> checkBalance;
+  checkBalance -> checkMultiple [label="EVET"];
+  checkBalance -> end [label="HAYIR"];
+
+  checkMultiple -> checkLimit [label="EVET"];
+  checkMultiple -> end [label="HAYIR"];
+
+  checkLimit -> dispenseCash [label="HAYIR"];
+  checkLimit -> end [label="EVET"];
+
+  dispenseCash -> printReceipt -> anotherTransaction;
+  anotherTransaction -> enterPIN [label="EVET"];
+  anotherTransaction -> end [label="HAYIR"];
+}

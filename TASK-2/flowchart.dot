@@ -1,0 +1,49 @@
+digraph ShoppingCart {
+  rankdir=TB;
+
+  start [shape=oval, label="BAŞLA"];
+  login [shape=parallelogram, label="Kullanıcı Girişi"];
+  loginCheck [shape=diamond, label="Giriş Başarılı mı?"];
+  exitLogin [shape=oval, label="BİTİR"];
+
+  browse [shape=parallelogram, label="Kategori Seç"];
+  selectProduct [shape=parallelogram, label="Ürün Seç"];
+  stockCheck [shape=diamond, label="Stok Var mı?"];
+  addToCart [shape=box, label="Sepete Ekle"];
+  continueBrowsing [shape=diamond, label="Devam Etmek İstiyor mu?"];
+
+  viewCart [shape=parallelogram, label="Sepeti Görüntüle"];
+  editCart [shape=box, label="Sepeti Düzenle"];
+  enterCoupon [shape=parallelogram, label="İndirim Kodu Gir"];
+  checkCoupon [shape=diamond, label="Kod Geçerli mi?"];
+  totalCheck [shape=diamond, label="Toplam ≥ 50 TL mi?"];
+  shippingCheck [shape=diamond, label="Toplam ≥ 200 TL mi?"];
+  shippingFree [shape=box, label="Kargo Ücretsiz"];
+  shippingAdded [shape=box, label="Kargo Ücreti Ekle"];
+  payment [shape=parallelogram, label="Ödeme Yöntemi Seç"];
+  confirm [shape=box, label="Sipariş Onaylandı"];
+  end [shape=oval, label="BİTİR"];
+
+  start -> login -> loginCheck;
+  loginCheck -> browse [label="EVET"];
+  loginCheck -> exitLogin [label="HAYIR"];
+
+  browse -> selectProduct -> stockCheck;
+  stockCheck -> addToCart [label="EVET"];
+  stockCheck -> browse [label="HAYIR"];
+  addToCart -> continueBrowsing;
+  continueBrowsing -> browse [label="EVET"];
+  continueBrowsing -> viewCart [label="HAYIR"];
+
+  viewCart -> editCart -> enterCoupon -> checkCoupon;
+  checkCoupon -> totalCheck;
+  totalCheck -> shippingCheck [label="EVET"];
+  totalCheck -> end [label="HAYIR"];
+
+  shippingCheck -> shippingFree [label="EVET"];
+  shippingCheck -> shippingAdded [label="HAYIR"];
+  shippingFree -> payment;
+  shippingAdded -> payment;
+
+  payment -> confirm -> end;
+}

@@ -1,0 +1,14 @@
+Soru: Görev 5 nedir?
+Yanıt: Banka hesap yönetim sisteminin algoritması modelleniyor.
+
+Soru: Pseudocode nasıl yazılır?
+Yanıt: Kullanıcı girişi, menüden seçim, bakiye görüntüleme, para yatırma, para çekme ve çıkış adımlarıyla yazıldı.
+
+Soru: DOT kodu nasıl yazılır?
+Yanıt: Her işlem için şekiller tanımlandı (oval, box, diamond, parallelogram) ve akış bağlantıları kuruldu.
+
+Soru: Graphviz ile diyagram nasıl oluşturulur?
+Yanıt: DOT kodu Graphviz Online sitesine yapıştırıldı, diyagram PNG olarak indirildi.
+
+Soru: GitHub’a nasıl yüklenir?
+Yanıt: Dosyalar `task5` klasörüne eklendi, commit işlemi yapıldı.

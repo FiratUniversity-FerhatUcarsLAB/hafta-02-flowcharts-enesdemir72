@@ -1,0 +1,38 @@
+digraph StudentGrades {
+  rankdir=TB;
+
+  start [shape=oval, label="BAŞLA"];
+  studentInfo [shape=parallelogram, label="Öğrenci Bilgilerini Gir"];
+  courseCount [shape=parallelogram, label="Ders Sayısını Gir"];
+  initAvg [shape=box, label="ORTALAMA = 0"];
+
+  loop [shape=diamond, label="Her Ders İçin Not Girildi mi?"];
+  enterGrade [shape=parallelogram, label="Not Gir"];
+  addGrade [shape=box, label="ORTALAMA = ORTALAMA + not"];
+
+  calcAvg [shape=box, label="ORTALAMA = ORTALAMA / Ders Sayısı"];
+  checkFail [shape=diamond, label="ORTALAMA < 50?"];
+  fail [shape=box, label="Kaldı"];
+
+  checkHigh [shape=diamond, label="ORTALAMA >= 85?"];
+  success [shape=box, label="Geçti"];
+  honor [shape=box, label="Takdir Belgesi"];
+
+  end [shape=oval, label="BİTİR"];
+
+  start -> studentInfo -> courseCount -> initAvg -> loop;
+  loop -> enterGrade [label="HAYIR"];
+  enterGrade -> addGrade -> loop;
+  loop -> calcAvg [label="EVET"];
+
+  calcAvg -> checkFail;
+  checkFail -> fail [label="EVET"];
+  checkFail -> checkHigh [label="HAYIR"];
+
+  checkHigh -> honor [label="EVET"];
+  checkHigh -> success [label="HAYIR"];
+
+  fail -> end;
+  success -> end;
+  honor -> end;
+}
